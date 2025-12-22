@@ -1,13 +1,6 @@
 # 参考文档
 
-## Simon Willison's HTML Tools
-
-本文档记录了从 Simon Willison 的博客文章中学到的设计理念和最佳实践。
-
-### 参考链接
-
-- [Useful patterns for building HTML tools](https://simonwillison.net/2025/Dec/10/html-tools/)
-- [tools.simonwillison.net](https://tools.simonwillison.net/) - Simon 的工具集合展示
+## 设计原则
 
 ### 核心设计原则
 
@@ -52,83 +45,119 @@
 - 利用支持 CORS 的公开 API
 - 常用的 CORS API：
   - GitHub (公开仓库)
-  - iNaturalist (物种观察)
-  - PyPI (Python 包)
-  - Bluesky (社交媒体)
-  - Mastodon
+  - 各类公开数据接口
 
 #### 文件处理
 - 使用 `<input type="file">` 直接读取文件
 - 无需上传到服务器
-- 支持 PDF.js、Tesseract.js 等浏览器内处理库
+- 支持浏览器内处理库
 
 #### 文件下载
 - 使用 JavaScript 生成可下载文件
 - 支持多种格式（PNG、JPEG、ICS 等）
 
-#### Pyodide 和 WebAssembly
-- Pyodide: 在浏览器中运行 Python
-- WebAssembly: 运行其他语言编译的代码
-- 拓展浏览器的能力边界
-
-### 工具开发流程
-
-#### 1. 使用 Artifacts/Canvas 原型
-- 在 Claude、ChatGPT 或 Gemini 中快速原型
-- 使用提示词: "Build an artifact/canvas that [需求]. No React."
-- 获得可分享的 URL
-
-#### 2. 切换到编码代理
-- 对于复杂项目，使用 Claude Code 或 Codex CLI
-- 可以使用 Playwright 进行测试
-- 直接提交到 GitHub 仓库
-
-#### 3. 自托管
-- 部署到 GitHub Pages
-- 避免 LLM 平台的沙箱限制
-- 更稳定可靠
-
-### 工具示例
-
-#### 调试工具
-- `clipboard-viewer` - 查看剪贴板的所有格式
-- `keyboard-debug` - 显示当前按下的键
-- `cors-fetch` - 测试 URL 是否支持 CORS
-- `exif` - 显示照片的 EXIF 数据
-
-#### 转换工具
-- `json-to-yaml` - JSON 转 YAML
-- `svg-render` - SVG 渲染为 PNG/JPEG
-- `terminal-to-html` - 终端输出转 HTML
-
-#### API 工具
-- `github-issue-to-markdown` - GitHub Issue 转 Markdown
-- `bluesky-thread` - Bluesky 讨论串查看
-- `pypi-changelog` - PyPI 包版本差异
-
-### 提示词模板
-
-```
-Build an artifact that [描述功能需求].
-No React.
-Use [特定库名] from CDN if needed.
-Include [特定功能要求].
-```
-
-### 记录和分享
-
-- 保存 LLM 对话记录
-- 在 commit message 中包含提示词链接
-- 工具页脚添加 "View source" 链接
-
 ---
 
 ## 本项目的实现
 
-基于以上原则，JustHTMLs 实现了：
+<div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 20px;">
 
-1. **标准化目录结构** - 每个工具独立文件夹，包含 index.html 和 app.html
-2. **索引系统** - 使用 index.json 管理工具元数据
-3. **搜索和过滤** - 前端实现的多维度搜索
-4. **提交流程** - 通过 GitHub Issues 提交工具
-5. **GitHub Pages 部署** - 静态托管，无服务器成本
+<h3 style="color: #333; margin-bottom: 15px;">项目特色</h3>
+
+<ul style="list-style: none; padding: 0;">
+  <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">
+    <strong style="color: #667eea;">📁 标准化目录结构</strong> - 每个工具独立文件夹，包含 index.html 和 app.html
+  </li>
+  <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">
+    <strong style="color: #667eea;">📋 索引系统</strong> - 使用 index.json 管理工具元数据
+  </li>
+  <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">
+    <strong style="color: #667eea;">🔍 搜索和过滤</strong> - 前端实现的多维度搜索
+  </li>
+  <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">
+    <strong style="color: #667eea;">🤝 提交流程</strong> - 通过 GitHub Issues 提交工具
+  </li>
+  <li style="padding: 10px 0;">
+    <strong style="color: #667eea;">🌐 GitHub Pages 部署</strong> - 静态托管，无服务器成本
+  </li>
+</ul>
+
+</div>
+
+---
+
+## 工具分类
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px;">
+  <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+  <div style="font-weight: 600;">格式转换</div>
+  <div style="font-size: 0.9rem; margin-top: 5px;">7 个工具</div>
+</div>
+
+<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 20px; border-radius: 12px;">
+  <div style="font-size: 2rem; margin-bottom: 10px;">👨‍💻</div>
+  <div style="font-weight: 600;">开发者工具</div>
+  <div style="font-size: 0.9rem; margin-top: 5px;">6 个工具</div>
+</div>
+
+<div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 20px; border-radius: 12px;">
+  <div style="font-size: 2rem; margin-bottom: 10px;">📝</div>
+  <div style="font-weight: 600;">文本处理</div>
+  <div style="font-size: 0.9rem; margin-top: 5px;">6 个工具</div>
+</div>
+
+<div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 20px; border-radius: 12px;">
+  <div style="font-size: 2rem; margin-bottom: 10px;">🖼️</div>
+  <div style="font-weight: 600;">图片处理</div>
+  <div style="font-size: 0.9rem; margin-top: 5px;">2 个工具</div>
+</div>
+
+<div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 20px; border-radius: 12px;">
+  <div style="font-size: 2rem; margin-bottom: 10px;">🧰</div>
+  <div style="font-weight: 600;">实用工具</div>
+  <div style="font-size: 0.9rem; margin-top: 5px;">4 个工具</div>
+</div>
+
+</div>
+
+---
+
+## 开发指南
+
+### 工具开发流程
+
+1. **需求分析** - 确定工具功能和用户需求
+2. **原型设计** - 使用 HTML/CSS/JS 快速原型
+3. **功能实现** - 保持精简，专注核心功能
+4. **测试验证** - 多浏览器兼容性测试
+5. **提交审核** - 通过 GitHub Issues 或 PR 提交
+
+### 工具规范
+
+每个工具必须包含：
+
+```
+tools/
+  └── your-tool/
+      ├── index.html    # 工具详情页（介绍页面）
+      └── app.html      # 工具实体页（实际运行的工具）
+```
+
+**设计原则：**
+
+- 单文件 HTML，内联 CSS/JS
+- 不使用 React 或需要构建的技术
+- 从 CDN 加载第三方库
+- 保持精简（建议 500 行以内）
+- 数据本地处理，保护隐私
+
+### 提示词模板
+
+```
+Build an HTML tool that [描述功能需求].
+No React.
+Use [特定库名] from CDN if needed.
+Include [特定功能要求].
+```
