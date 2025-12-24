@@ -1,10 +1,14 @@
-const CACHE_NAME = 'justhtmls-v1';
+const CACHE_NAME = 'justhtmls-v1.1';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/index.json',
   '/favicon.svg',
   '/assets/vendor/fontawesome/css/all.min.css',
+];
+
+const NETWORK_FIRST_PATHS = [
+  '/index.json',
 ];
 
 const CACHE_FIRST_PATHS = [
@@ -52,18 +56,32 @@ self.addEventListener('fetch', (event) => {
   }
 
   const { pathname } = new URL(request.url);
-  if (CACHE_FIRST_PATHS.some((path) => pathname.startsWith(path))) {
+  if (NETWORK_FIRST_PATHS.includes(pathname)) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) {
-          return cached;
-        }
-        return fetch(request).then((response) => {
+      fetch(request)
+        .then((response) => {
           const copy = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           return response;
-        });
-      })
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  if (CACHE_FIRST_PATHS.some((path) => pathname.startsWith(path))) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(request).then((cached) => {
+          const networkFetch = fetch(request)
+            .then((response) => {
+              cache.put(request, response.clone());
+              return response;
+            })
+            .catch(() => cached);
+          return cached || networkFetch;
+        })
+      )
     );
     return;
   }
