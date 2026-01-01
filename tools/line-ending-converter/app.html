@@ -168,9 +168,44 @@
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
             font-size: 13px;
         }
+    
+        .tool-doc-link,
+        .tool-home-link {
+            position: fixed;
+            top: 16px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f172a;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            z-index: 9999;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .tool-doc-link {
+            right: 16px;
+        }
+
+        .tool-home-link {
+            right: 74px;
+        }
+
+        .tool-doc-link:hover,
+        .tool-home-link:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(15, 23, 42, 0.2);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
+    <a class="tool-home-link" href="../../index.html">首页</a>
+    <a class="tool-doc-link" href="index.html">说明</a>
     <div class="container">
         <div class="header">
             <h1>行尾符转换器</h1>
@@ -207,7 +242,8 @@
                     function normalize(value) {
                         return value.replace(/
         /g, '
-        ').replace(/        /g, '
+        ').replace(/
+        /g, '
         ');
                     }
 
@@ -240,7 +276,7 @@
                         document.execCommand('copy');
                     });
     </script>
-    <script src="/assets/clicks.js" defer></script>
+    <script src="../../assets/clicks.js" defer></script>
 </body>
 </html>
 

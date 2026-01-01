@@ -838,7 +838,7 @@
                 const category = toolsData.categories.find(c => c.id === tool.category);
                 const updatedAt = tool.updatedAt || tool.createdAt || '未知';
                 return `
-                    <a href="${tool.detail}" class="tool-card" style="--tool-color: ${tool.color}">
+                    <a href="${tool.entry}" class="tool-card" style="--tool-color: ${tool.color}">
                         ${tool.featured ? '<span class="featured-badge">精选</span>' : ''}
                         <div class="tool-header">
                             <div class="tool-icon" style="background: ${tool.color}20; color: ${tool.color};">
@@ -910,6 +910,6 @@
         loadTools();
 
     </script>
-    <script src="/assets/clicks.js" defer></script>
+    <script src="assets/clicks.js" defer></script>
 </body>
 </html>
